@@ -72,10 +72,8 @@ public class HomeActivity extends AppCompatActivity implements HomeView, HomeAda
             mHomeBinding.include.editText.setTextColor(ContextCompat.getColor(mHomeBinding.include.editText.getContext(),
                     R.color.color546E7A));
         }
-        if (null != getWindow()){
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-            mHomeBinding.include.editText.setCursorVisible(false);
-        }
+        hideKeyBoard();
+        mHomeBinding.include.editText.setCursorVisible(false);
         historyData = mHomePresenter.getDataInDataBase();
         adapter = new ArrayAdapter<String>
                 (this, R.layout.drop_down_layout, historyData);
@@ -108,10 +106,8 @@ public class HomeActivity extends AppCompatActivity implements HomeView, HomeAda
     public void updateRecycleViewOnResposneSuccess(Response response) {
         dismissProgressDialog();
         mHomeBinding.rvRecycleView.setFocusable(true);
-        if (null != getWindow()){
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-            mHomeBinding.include.editText.setCursorVisible(false);
-        }
+        hideKeyBoard();
+        mHomeBinding.include.editText.setCursorVisible(false);
         if (null != response.getQuery().getPages()) {
             mHomeBinding.rvRecycleView.setLayoutManager(new LinearLayoutManager(this));
             mHomeAdapter.addDataToList(response.getQuery().getPages(), true);
@@ -151,11 +147,18 @@ public class HomeActivity extends AppCompatActivity implements HomeView, HomeAda
 
     @Override
     public void onItemCLicked(String personName) {
+        hideKeyBoard();
         historyData.add(personName);
-        if (null != adapter){
+        if (null != adapter) {
             adapter.notifyDataSetChanged();
         }
         mHomePresenter.addDataToDataBase(personName);
         startActivity((new Intent(this, CustomWebViewActivity.class)).putExtra(PERSON_NAME, personName));
+    }
+
+    public void hideKeyBoard() {
+        if (null != getWindow()) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        }
     }
 }
