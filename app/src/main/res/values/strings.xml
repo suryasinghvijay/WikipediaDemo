@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">WikipediaDemo</string>
+    <string name="et_hint">Search for Brands, celebrities and More</string>
+    <string name="no_match_found">No match found, Please modify your search</string>
+    <string name="no_internet">No Internet Connection Found, please connect to internet and try again</string>
+    <string name="empty_search">He who would search for pearls must dive below.\n\t\t - John Dryden</string>
+</resources>
