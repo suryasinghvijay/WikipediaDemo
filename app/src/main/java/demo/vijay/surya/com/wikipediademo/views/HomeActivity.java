@@ -62,6 +62,8 @@ public class HomeActivity extends AppCompatActivity implements HomeView, HomeAda
         mHomePresenter.attachView(this);
         mHomeBinding.include.imageView.setOnClickListener(view -> {
             mHomeBinding.include.editText.setText("");
+            resposneData.clear();
+            mHomeAdapter.addDataToList(resposneData, true);
         });
         setHomeAdapter();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -72,6 +74,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, HomeAda
         }
         if (null != getWindow()){
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+            mHomeBinding.include.editText.setCursorVisible(false);
         }
         historyData = mHomePresenter.getDataInDataBase();
         adapter = new ArrayAdapter<String>
@@ -105,6 +108,10 @@ public class HomeActivity extends AppCompatActivity implements HomeView, HomeAda
     public void updateRecycleViewOnResposneSuccess(Response response) {
         dismissProgressDialog();
         mHomeBinding.rvRecycleView.setFocusable(true);
+        if (null != getWindow()){
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+            mHomeBinding.include.editText.setCursorVisible(false);
+        }
         if (null != response.getQuery().getPages()) {
             mHomeBinding.rvRecycleView.setLayoutManager(new LinearLayoutManager(this));
             mHomeAdapter.addDataToList(response.getQuery().getPages(), true);
