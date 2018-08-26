@@ -39,7 +39,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, HomeAda
 
     public static final String PERSON_NAME = "name";
     public static final String WIKI_PEDIA_URL = "https://en.wikipedia.org/wiki/";
-    public static final Long SEARCH_DEBOUNCE_LIMIT = 1500L;
+    public static final Long SEARCH_DEBOUNCE_LIMIT = 1000L;
 
     @Inject
     HomePresenter mHomePresenter;
